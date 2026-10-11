@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Bean | Recycling Rewards</title>
+<style>
+:root{--green:#176b45;--lime:#b8e986;--ink:#183128;--muted:#63736b;--paper:#f5f8f2;--white:#fff;--line:#dce7dd;--orange:#f3b64b}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);font-family:Inter,Arial,sans-serif;color:var(--ink)}
+header{background:linear-gradient(130deg,#124f37,#218653);color:white;padding:22px max(20px,calc((100% - 1100px)/2));display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
+.brand{display:flex;gap:11px;align-items:center}.logo{width:45px;height:45px;border-radius:15px;background:#d9f7b9;color:#175d3b;display:grid;place-items:center;font-size:26px}
+.brand h1{font-size:21px;margin:0}.brand p{margin:4px 0 0;font-size:12px;color:#d9efdf}.tag{font-size:12px;border:1px solid #83b89a;border-radius:999px;padding:8px 12px}
+main{max-width:1100px;margin:auto;padding:28px 20px 50px}.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;align-items:stretch}
+.panel{background:white;border:1px solid var(--line);border-radius:22px;padding:25px;box-shadow:0 7px 22px #1831280a}
+.kicker{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--green);font-weight:800}.hero h2{font-size:clamp(30px,4vw,47px);line-height:1.05;margin:12px 0}.hero h2 span{color:var(--green)}.hero p{line-height:1.6;color:var(--muted)}
+.points-banner{margin-top:20px;background:#eff8e8;border-radius:16px;padding:16px;display:flex;align-items:center;justify-content:space-between;gap:10px}.points-banner strong{font-size:25px;color:var(--green)}.points-banner small{display:block;color:var(--muted);margin-top:4px}
+.qrbox{background:#f8fbf5;border:1px dashed #9dbba4;border-radius:17px;padding:18px;text-align:center;margin-top:18px}.qr-placeholder{width:110px;height:110px;margin:0 auto 10px;border:2px dashed #7ca48a;border-radius:12px;display:grid;place-items:center;font-size:32px;color:var(--green)}.qrbox small{display:block;color:var(--muted);line-height:1.45}
+h3{margin:0 0 18px;font-size:21px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{display:flex;flex-direction:column;gap:7px}.field.full{grid-column:1/-1}label{font-size:13px;font-weight:700}input,select,textarea{font:inherit;padding:12px 13px;border:1px solid #cfddd1;border-radius:11px;background:#fff;width:100%;color:var(--ink)}input:focus,select:focus{outline:2px solid #b7df9e;border-color:var(--green)}
+button{font:inherit;font-weight:750;border:0;border-radius:12px;padding:13px 17px;cursor:pointer}.primary{background:var(--green);color:white}.primary:hover{background:#105636}.secondary{background:#eaf3e8;color:var(--green)}.danger{background:#fff0ed;color:#a13d2e}.fullbtn{width:100%;margin-top:17px}.note{font-size:12px;line-height:1.5;color:var(--muted);margin:12px 0 0}
+.lower{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:22px}.balance{background:#163f2d;color:white;border-radius:22px;padding:25px}.balance .muted{color:#c2d8c9}.balance-number{font-size:42px;font-weight:850;margin:9px 0}.progress{height:10px;background:#416451;border-radius:99px;overflow:hidden;margin:15px 0 8px}.progress span{height:100%;display:block;width:0;background:var(--lime);border-radius:99px;transition:width .2s}.balance small{line-height:1.5}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 14px}.tabs button{padding:10px 13px}.tabs button.active{background:var(--green);color:white}.section{display:none}.section.active{display:block}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:11px 8px;border-bottom:1px solid var(--line);vertical-align:top}th{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px}.status{display:inline-block;padding:5px 8px;border-radius:99px;background:#fff1d4;color:#7d5609;font-size:11px;font-weight:800}.status.approved{background:#e4f6df;color:#21683a}.status.rejected{background:#ffebe7;color:#a13d2e}.actions{display:flex;gap:6px;flex-wrap:wrap}.actions button{font-size:11px;padding:7px 9px}.empty{padding:20px;text-align:center;color:var(--muted);font-size:13px}.footer{text-align:center;color:var(--muted);font-size:12px;margin-top:28px}
+.toast{display:none;margin-top:12px;padding:11px 13px;background:#e8f7e4;border-radius:10px;color:#1d6738;font-size:13px}.toast.show{display:block}
+@media(max-width:760px){.hero,.lower{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}header{padding:18px 20px}.panel,.balance{padding:20px}.hero h2{font-size:36px}}
+</style>
+</head>
+<body>
+<header>
+ <div class="brand"><div class="logo">🌱</div><div><h1>Smart Bean</h1><p>Recycle today. Earn for tomorrow.</p></div></div>
+ <div class="tag">PUBLIC RECYCLING REWARDS</div>
+</header>
+<main>
+ <section class="hero">
+  <div class="panel">
+   <div class="kicker">Small action. Real impact.</div>
+   <h2>Give bottles a second life. <span>Earn points.</span></h2>
+   <p>Smart Bean is open to everyone. Register, submit your bottle deposit for checking, and collect points when your submission is approved.</p>
+   <div class="points-banner"><div><strong>10 points</strong><small>for each verified bottle</small></div><div style="text-align:right"><strong>2,000</strong><small>points to qualify for shop redemption</small></div></div>
+   <div class="qrbox"><div class="qr-placeholder">▦</div><b>Your QR code goes here</b><small>When you provide your QR code, link it to this application's published web address. This placeholder is not a working QR code.</small></div>
+  </div>
+  <div class="panel">
+   <h3>Join Smart Bean</h3>
+   <p style="margin-top:-9px;font-size:13px;color:var(--muted)">Create your participant profile to track your rewards on this device.</p>
+   <form id="profileForm">
+    <div class="form-grid">
+     <div class="field full"><label for="name">Full name *</label><input id="name" required maxlength="80" placeholder="Enter your name"></div>
+     <div class="field full"><label for="phone">Phone number or participant ID *</label><input id="phone" required maxlength="40" placeholder="e.g. 07xx xxx xxx"></div>
+    </div>
+    <button class="primary fullbtn" type="submit">Create / load my profile</button>
+   </form>
+   <div id="profileToast" class="toast" role="status"></div>
+   <p class="note">Use the same phone number or participant ID each time. This demo stores data only in this browser; it is not yet a shared online account.</p>
+  </div>
+ </section>
+
+ <div class="tabs" role="tablist">
+  <button class="active secondary" data-tab="submit">Submit bottles</button>
+  <button class="secondary" data-tab="rewards">My rewards</button>
+  <button class="secondary" data-tab="admin">Manual review</button>
+ </div>
+
+ <section id="submit" class="section active panel">
+  <h3>Record a bottle deposit</h3>
+  <p style="margin-top:-9px;color:var(--muted);font-size:13px">Submit the number of bottles you deposited. Points remain pending until a reviewer checks the submission.</p>
+  <form id="depositForm">
+   <div class="form-grid">
+    <div class="field"><label for="bottles">Number of bottles *</label><input id="bottles" type="number" min="1" max="500" step="1" value="1" required></div>
+    <div class="field"><label for="location">Collection point (optional)</label><input id="location" maxlength="100" placeholder="Where did you deposit them?"></div>
+    <div class="field full"><label for="reference">Extra note (optional)</label><input id="reference" maxlength="180" placeholder="Any details for the reviewer"></div>
+   </div>
+   <button class="primary fullbtn" type="submit">Submit for manual verification</button>
+  </form>
+  <div id="depositToast" class="toast" role="status"></div>
+  <p class="note">Submitting a form does not automatically confirm a deposit or issue spendable points. Please keep bottles ready for manual checking.</p>
+ </section>
+
+ <section id="rewards" class="section">
+  <div class="lower" style="margin-top:0">
+   <div class="balance">
+    <div class="muted">Verified points balance</div><div id="balance" class="balance-number">0</div>
+    <div class="muted">points available</div>
+    <div class="progress"><span id="progress"></span></div>
+    <small id="progressText">0 of 2,000 points toward redemption eligibility</small>
+    <button id="redeemBtn" class="secondary fullbtn" disabled>Request shop redemption</button>
+    <p class="note" style="color:#c2d8c9">Redemption is a request, not a cash withdrawal. The shop must confirm the reward and deduct points when fulfilled.</p>
+   </div>
+   <div class="panel"><h3>My activity</h3><div id="myActivity" class="empty">Create or load your profile to see activity.</div></div>
+  </div>
+  <div class="panel" style="margin-top:22px"><h3>Redemption requests</h3><div id="myRedemptions" class="empty">No redemption requests yet.</div></div>
+ </section>
+
+ <section id="admin" class="section panel">
+  <h3>Manual review desk</h3>
+  <p style="margin-top:-9px;color:var(--muted);font-size:13px">Demo review controls. Approving adds 10 points per bottle to the participant's verified balance. Reject submissions that cannot be confirmed.</p>
+  <div id="adminRows" class="table-wrap"></div>
+  <h3 style="margin-top:28px">Shop redemption queue</h3>
+  <div id="redemptionRows" class="table-wrap"></div>
+  <p class="note">This prototype has no administrator login. Do not publish it for real rewards until review controls are protected by authenticated administrator access and data is stored on a secure backend.</p>
+ </section>
+ <div class="footer">Smart Bean • Public recycling rewards prototype • 10 points per approved bottle</div>
+</main>
+<script>
+(() => {
+ const STORAGE_KEY='smartBeanPrototypeV1';
+ const $=id=>document.getElementById(id);
+ let db={profiles:{},submissions:[],redemptions:[]}, currentKey='';
+ try{db=JSON.parse(localStorage.getItem(STORAGE_KEY))||db}catch(e){}
+ function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(db));render()}
+ function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+ function profile(){return currentKey?db.profiles[currentKey]:null}
+ function points(key){return db.submissions.filter(s=>s.key===key&&s.status==='approved').reduce((sum,s)=>sum+s.bottles*10,0)-db.redemptions.filter(r=>r.key===key&&r.status==='fulfilled').reduce((sum,r)=>sum+r.points,0)}
+ function toast(id,msg){$(id).textContent=msg;$(id).classList.add('show')}
+ function date(){return new Date().toLocaleString()}
+ $('profileForm').addEventListener('submit',e=>{
+  e.preventDefault();const name=$('name').value.trim(),raw=$('phone').value.trim();
+  if(!name||!raw)return;const key=raw.toLowerCase().replace(/\s+/g,'');
+  if(!db.profiles[key])db.profiles[key]={name,phone:raw,created:date()};
+  else db.profiles[key].name=name;
+  currentKey=key;save();toast('profileToast','Profile loaded. You can now submit bottles and check your rewards.');
+ });
+ $('depositForm').addEventListener('submit',e=>{
+  e.preventDefault();if(!profile()){toast('depositToast','Please create or load your profile first.');return}
+  const bottles=Number($('bottles').value);
+  if(!Number.isInteger(bottles)||bottles<1||bottles>500){toast('depositToast','Enter a whole number from 1 to 500.');return}
+  db.submissions.unshift({id:'SB-'+Date.now().toString(36).toUpperCase(),key:currentKey,bottles,location:$('location').value.trim(),note:$('reference').value.trim(),date:date(),status:'pending'});
+  $('bottles').value=1;$('location').value='';$('reference').value='';save();toast('depositToast','Submission received for manual review. Points are pending until approved.');
+ });
+ document.querySelectorAll('[data-tab]').forEach(btn=>btn.addEventListener('click',()=>{
+  document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b===btn));
+  document.querySelectorAll('.section').forEach(s=>s.classList.toggle('active',s.id===btn.dataset.tab));
+  render();
+ }));
+ $('redeemBtn').addEventListener('click',()=>{
+  if(!profile())return;
+  const bal=points(currentKey);
+  if(bal<2000){alert('You need at least 2,000 verified points to request redemption.');return}
+  const already=db.redemptions.some(r=>r.key===currentKey&&r.status==='pending');
+  if(already){alert('You already have a pending redemption request.');return}
+  db.redemptions.unshift({id:'SR-'+Date.now().toString(36).toUpperCase(),key:currentKey,points:2000,date:date(),status:'pending'});
+  save();alert('Redemption request sent for shop confirmation.');
+ });
+ function render(){
+  const p=profile(),bal=p?points(currentKey):0;
+  $('balance').textContent=bal.toLocaleString();
+  $('progress').style.width=Math.min(100,bal/2000*100)+'%';
+  $('progressText').textContent=bal.toLocaleString()+' of 2,000 points toward redemption eligibility';
+  $('redeemBtn').disabled=!p||bal<2000||db.redemptions.some(r=>r.key===currentKey&&r.status==='pending');
+  const mine=p?db.submissions.filter(s=>s.key===currentKey):[];
+  $('myActivity').innerHTML=!p?'<div class="empty">Create or load your profile first.</div>':mine.length?'<div class="table-wrap"><table><thead><tr><th>Date</th><th>Bottles</th><th>Potential points</th><th>Status</th></tr></thead><tbody>'+mine.map(s=>`<tr><td>${esc(s.date)}</td><td>${s.bottles}</td><td>${s.bottles*10}</td><td><span class="status ${s.status}">${s.status}</span></td></tr>`).join('')+'</tbody></table></div>':'<div class="empty">No bottle submissions yet.</div>';
+  const mr=p?db.redemptions.filter(r=>r.key===currentKey):[];
+  $('myRedemptions').innerHTML=mr.length?'<div class="table-wrap"><table><thead><tr><th>Request</th><th>Points</th><th>Date</th><th>Status</th></tr></thead><tbody>'+mr.map(r=>`<tr><td>${esc(r.id)}</td><td>${r.points}</td><td>${esc(r.date)}</td><td><span class="status ${r.status==='fulfilled'?'approved':r.status==='rejected'?'rejected':''}">${esc(r.status)}</span></td></tr>`).join('')+'</tbody></table></div>':'<div class="empty">No redemption requests yet.</div>';
+  const subs=db.submissions;
+  $('adminRows').innerHTML=subs.length?'<table><thead><tr><th>Participant</th><th>Deposit details</th><th>Points</th><th>Status</th><th>Review</th></tr></thead><tbody>'+subs.map(s=>{const u=db.profiles[s.key];return `<tr><td>${esc(u?.name)}<br><small>${esc(u?.phone)}</small></td><td>${s.bottles} bottle(s)<br><small>${esc(s.location||'No location')} · ${esc(s.date)}</small><br><small>${esc(s.note)}</small></td><td>${s.bottles*10}</td><td><span class="status ${s.status}">${s.status}</span></td><td>${s.status==='pending'?`<div class="actions"><button class="secondary" data-action="approve" data-id="${s.id}">Approve</button><button class="danger" data-action="reject" data-id="${s.id}">Reject</button></div>`:'—'}</td></tr>`}).join('')+'</tbody></table>':'<div class="empty">No submissions to review.</div>';
+  const reds=db.redemptions;
+  $('redemptionRows').innerHTML=reds.length?'<table><thead><tr><th>Participant</th><th>Points</th><th>Date</th><th>Status</th><th>Action</th></tr></thead><tbody>'+reds.map(r=>{const u=db.profiles[r.key];return `<tr><td>${esc(u?.name)}<br><small>${esc(u?.phone)}</small></td><td>${r.points}</td><td>${esc(r.date)}</td><td><span class="status ${r.status==='fulfilled'?'approved':r.status==='rejected'?'rejected':''}">${esc(r.status)}</span></td><td>${r.status==='pending'?`<div class="actions"><button class="secondary" data-red="fulfilled" data-id="${r.id}">Mark fulfilled</button><button class="danger" data-red="rejected" data-id="${r.id}">Reject</button></div>`:'—'}</td></tr>`}).join('')+'</tbody></table>':'<div class="empty">No redemption requests.</div>';
+ }
+ $('adminRows').addEventListener('click',e=>{
+  const b=e.target.closest('button[data-action]');if(!b)return;
+  const s=db.submissions.find(x=>x.id===b.dataset.id);if(!s||s.status!=='pending')return;
+  s.status=b.dataset.action==='approve'?'approved':'rejected';save();
+ });
+ $('redemptionRows').addEventListener('click',e=>{
+  const b=e.target.closest('button[data-red]');if(!b)return;
+  const r=db.redemptions.find(x=>x.id===b.dataset.id);if(!r||r.status!=='pending')return;
+  if(b.dataset.red==='fulfilled'&&points(r.key)<r.points){alert('This participant no longer has enough available points.');return}
+  r.status=b.dataset.red;save();
+ });
+ render();
+})();
+</script>
+</body>
+</html>
